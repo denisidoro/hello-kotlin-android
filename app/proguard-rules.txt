@@ -1,0 +1,140 @@
+# http://proguard.sourceforge.net/index.html#manual/usage.html
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+
+
+-dontshrink
+-dontoptimize
+-dontpreverify
+-dontobfuscate
+
+#### ENUMS ####
+# For enumeration classes, see http://proguard.sourceforge.net/manual/examples.html#enumerations
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+-keepclassmembers class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator CREATOR;
+}
+-keepclassmembers class **.R$* {
+    public static <fields>;
+}
+
+#### Support Library ####
+-keep class android.support.**
+-keepclassmembers class android.support.** {
+    public static <fields>;
+    public <methods>;
+    protected <methods>;
+}
+
+#### CRASHLYTICS ####
+-keepattributes SourceFile, LineNumberTable
+
+#### Go Go ####
+-keepattributes Exceptions, InnerClasses, Signature, Synthetic, Deprecated, EnclosingMethod
+
+#### RX JAVA ####
+-keep class rx.schedulers.Schedulers {
+    public static <methods>;
+}
+-keep class rx.schedulers.ImmediateScheduler {
+    public <methods>;
+}
+-keep class rx.schedulers.TestScheduler {
+    public <methods>;
+}
+-keep class rx.schedulers.Schedulers {
+    public static ** test();
+}
+-keep class rx.Completable {
+    public static <methods>;
+}
+-keep class rx.Single {
+    public static <methods>;
+}
+
+
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+    long producerIndex;
+    long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
+
+
+-dontwarn com.squareup.okhttp.**
+-dontwarn okio.**
+-dontwarn sun.misc.**
+
+-dontwarn java.lang.invoke.*
+
+-dontwarn org.apache.**
+
+-dontshrink
+-dontoptimize
+-dontpreverify
+-verbose
+
+-dontwarn javax.management.**
+-dontwarn java.lang.management.**
+-dontwarn org.apache.log4j.**
+-dontwarn org.apache.commons.logging.**
+-dontwarn org.slf4j.**
+-dontwarn org.json.**
+
+
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.app.backup.BackupAgentHelper
+-keep public class * extends android.preference.Preference
+-keep public class com.android.vending.licensing.ILicensingService
+-keep class javax.** { *; }
+-keep class org.** { *; }
+-keep class twitter4j.** { *; }
+
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+-keepclasseswithmembernames class * {
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+
+-keepclasseswithmembernames class * {
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+
+-keep class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator *;
+}
+
+
+#### App ####
+-keepclassmembers class com.github.denisidoro.hellokotlin.** {
+    public static <fields>;
+    public <methods>;
+    protected <methods>;
+}
+
+-keepclassmembers class **$WhenMappings {
+    <fields>;
+}
+
+-dontwarn kotlin.**
+
+-ignorewarnings

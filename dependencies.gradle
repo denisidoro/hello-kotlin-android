@@ -1,0 +1,110 @@
+ext.release_versions = [
+        VERSION_CODE_PROD   : 1,
+        VERSION_CODE_BETA   : 1,
+        VERSION_CODE_STAGING: 1,
+        VERSION_NAME        : "0.1"
+]
+
+ext.versions = [
+        support           : '23.2.1',
+        playService       : '9.0.2',
+        okhttp            : '3.2.0',
+        reduks            : '2.0.0b1',
+        rxBinding         : '0.4.0',
+        dagger            : '2.0.2',
+        kotlin            : '1.0.3',
+        androidSupportTest: '0.4',
+        dexmaker          : '1.4',
+        mockito           : '1.10.19',
+        powerMock         : '1.6.5',
+        expresso          : '2.2.1',
+        log4j             : '1.7.12'
+]
+
+ext.libraries = [
+
+        // Support
+        supportV4             : "com.android.support:support-v4:$versions.support",
+        supportAppCompatV7    : "com.android.support:appcompat-v7:$versions.support",
+        supportRecyclerView   : "com.android.support:recyclerview-v7:$versions.support",
+        supportDesign         : "com.android.support:design:$versions.support",
+
+        // Play Service
+        playServiceGcm        : "com.google.android.gms:play-services-gcm:$versions.playService",
+        playServiceLocation   : "com.google.android.gms:play-services-location:$versions.playService",
+        playServiceAppIndexing: "com.google.android.gms:play-services-appindexing:$versions.playService",
+
+        // Misc
+        multidex              : "com.android.support:multidex:1.0.1",
+        javaxAnnotation       : 'javax.annotation:javax.annotation-api:1.2',
+
+        // RxJava
+        rxAndroid             : "io.reactivex:rxandroid:1.2.0",
+        rxJava                : "io.reactivex:rxjava:1.1.5",
+        rxBinding             : "com.jakewharton.rxbinding:rxbinding:$versions.rxBinding",
+        rxBindingV4           : "com.jakewharton.rxbinding:rxbinding-support-v4:$versions.rxBinding",
+        rxBindingRecyclerView : "com.jakewharton.rxbinding:rxbinding-recyclerview-v7:$versions.rxBinding",
+
+        // Json
+        gson                  : "com.google.code.gson:gson:2.5",
+
+        // HTTP
+        okhttp                : "com.squareup.okhttp3:okhttp:$versions.okhttp",
+
+        // Dependency injection
+        dagger                : "com.google.dagger:dagger:$versions.dagger",
+        daggerCompiler        : "com.google.dagger:dagger-compiler:$versions.dagger",
+
+        // UI
+        calligraphy           : "uk.co.chrisjenx:calligraphy:2.2.0",
+        picasso               : "com.squareup.picasso:picasso:2.5.2",
+
+        // Analytics and logging
+        amplitude             : "com.amplitude:android-sdk:2.7.2",
+        timber                : "com.jakewharton.timber:timber:4.1.2",
+
+        // Runner
+        runner                : "com.android.support.test:runner:$versions.androidSupportTest",
+        rules                 : "com.android.support.test:rules:$versions.androidSupportTest",
+
+        // Espresso
+        espressoCore          : "com.android.support.test.espresso:espresso-core:$versions.expresso",
+        espressoIntents       : "com.android.support.test.espresso:espresso-intents:$versions.expresso",
+        espressoContrib       : "com.android.support.test.espresso:espresso-contrib:$versions.expresso",
+
+        // Dexmaker
+        dexmaker              : "com.crittercism.dexmaker:dexmaker:$versions.dexmaker",
+        dexmakerDx            : "com.crittercism.dexmaker:dexmaker-dx:$versions.dexmaker",
+        dexmakerMockito       : "com.crittercism.dexmaker:dexmaker-mockito:$versions.dexmaker",
+
+        // Mockito
+        mockito               : "org.mockito:mockito-core:$versions.mockito",
+        powerMock             : "org.powermock:powermock-module-junit4:$versions.powerMock",
+        powerMockMockito      : "org.powermock:powermock-api-mockito:$versions.powerMock",
+        mockWebServer         : "com.squareup.okhttp3:mockwebserver:$versions.okhttp",
+
+        // JUnit
+        junit                 : "junit:junit:4.12",
+
+        // Guava
+        guava                 : "com.google.guava:guava:18.0",
+
+        // Kotlin
+        kotlin                : "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin",
+        kotlinJUnitTest       : "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin",
+
+        // Log4j
+        log4jAndroid          : "org.slf4j:slf4j-android:$versions.log4j",
+        log4jOver             : "org.slf4j:log4j-over-slf4j:$versions.log4j",
+
+        // Anvil
+        anvil                 : "co.trikita:anvil-sdk15:0.4.0",
+
+        // Reduks
+        reduks                : "com.github.beyondeye.reduks:reduks-core:$versions.reduks",
+        reduksRx              : "com.github.beyondeye.reduks:reduks-rx:$versions.reduks",
+        reduksAndroid         : "com.github.beyondeye.reduks:reduks-android:$versions.reduks",
+        reduksKovenant        : "com.github.beyondeye.reduks:reduks-kovenant:$versions.reduks",
+        reduksDev             : "com.github.beyondeye.reduks:reduks-devtools:$versions.reduks"
+
+]
