@@ -9,7 +9,7 @@ ext.versions = [
         support           : '23.2.1',
         playService       : '9.0.2',
         okhttp            : '3.2.0',
-        reduks            : '2.0.0b1',
+        reduks            : '2.0.0b3',
         rxBinding         : '0.4.0',
         dagger            : '2.0.2',
         kotlin            : '1.0.3',

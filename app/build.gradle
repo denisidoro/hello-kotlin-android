@@ -28,11 +28,6 @@ android {
         }
     }
 
-    /*compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }*/
-
     repositories {
         mavenCentral()
     }
@@ -169,15 +164,16 @@ dependencies {
     compile libraries.kotlin
     testCompile libraries.kotlinJUnitTest
 
-    // Runner
-    androidTestCompile libraries.runner
-    androidTestCompile libraries.rules
-
     // Design pattern
     compile libraries.anvil
-    /*compile libraries.reduks
+    compile libraries.reduks
     compile libraries.reduksRx
-    compile libraries.reduksAndroid*/
+    compile libraries.reduksAndroid
+
+    // Dexmaker
+    androidTestCompile libraries.dexmaker
+    androidTestCompile libraries.dexmakerDx
+    androidTestCompile libraries.dexmakerMockito
 
     /* Testing
 
@@ -190,10 +186,9 @@ dependencies {
         exclude module: 'recyclerview-v7'
     }
 
-    // Dexmaker
-    androidTestCompile libraries.dexmaker
-    androidTestCompile libraries.dexmakerDx
-    androidTestCompile libraries.dexmakerMockito
+    // Runner
+    androidTestCompile libraries.runner
+    androidTestCompile libraries.rules
 
     // Mockito
     testCompile libraries.mockito
