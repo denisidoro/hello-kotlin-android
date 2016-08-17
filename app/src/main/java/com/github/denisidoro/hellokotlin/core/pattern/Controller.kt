@@ -8,7 +8,7 @@ abstract class Controller(protected val activity: BaseActivity) {
 
     val subscription = CompositeSubscription()
 
-    abstract fun getView(): RenderableView
+    abstract val view: RenderableView
 
     @CallSuper
     fun unbind() {

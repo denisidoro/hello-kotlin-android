@@ -3,9 +3,8 @@ package com.github.denisidoro.hellokotlin.counter
 import com.beyondeye.reduks.rx.RxStore
 import com.github.denisidoro.hellokotlin.core.pattern.AnvilSubscriber
 import com.github.denisidoro.hellokotlin.core.pattern.Controller
-import trikita.anvil.RenderableView
 
-class CounterController(activity: MainActivity): Controller(activity) {
+class CounterController(activity: CounterActivity): Controller(activity) {
 
     val reducer = CounterReducer()
     val state = CounterState(42)
@@ -16,7 +15,7 @@ class CounterController(activity: MainActivity): Controller(activity) {
         store.subscribeRx(subscriber)
     }
 
-    override fun getView(): RenderableView = CounterView(activity, store)
+    override val view = CounterView(activity, store)
 
 }
 
