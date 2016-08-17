@@ -3,11 +3,11 @@ package com.github.denisidoro.hellokotlin
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.LinearLayout
 import com.beyondeye.reduks.Reducer
 import com.beyondeye.reduks.rx.RxStore
 import com.beyondeye.reduks.rx.RxStoreSubscriber
 import com.github.denisidoro.hellokotlin.core.pattern.BaseActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import rx.subscriptions.CompositeSubscription
 import trikita.anvil.Anvil
 import trikita.anvil.DSL.*
@@ -35,9 +35,8 @@ class MainActivity : BaseActivity() {
         val subscriber = CounterStoreSubscriber(store)
         store.subscribeRx(subscriber)
 
-        //setSupportActionBar(toolbar)
-        //fab!!.setOnClickListener { view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show() }
-
+        setSupportActionBar(toolbar)
+        
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -63,32 +62,18 @@ class MainActivity : BaseActivity() {
 
 class MyRenderableView(activity: MainActivity, private val store: RxStore<CounterState>) : RenderableView(activity) {
     override fun view() {
-        linearLayout {
-            size(FILL, WRAP)
-            orientation(LinearLayout.VERTICAL)
+        xml(R.layout.activity_main) {
 
-            textView {
+            withId(R.id.countTV) {
                 text(store.state.i.toString())
-                gravity(CENTER_HORIZONTAL)
-                textSize(sip(100F));
-                padding(0, dip(40))
-
             }
 
-            button {
-                size(FILL, WRAP)
-                padding(dip(10))
-                text("+")
+            withId(R.id.minusBT) {
                 onClick { v -> store.dispatch(CounterActions.INCREMENT) }
-                margin(dip(12), 0)
             }
 
-            button {
-                size(FILL, WRAP)
-                padding(dip(5))
-                text("-")
+            withId(R.id.plusBT) {
                 onClick { v -> store.dispatch(CounterActions.DECREMENT) }
-                margin(dip(12), 0)
             }
         }
     }
