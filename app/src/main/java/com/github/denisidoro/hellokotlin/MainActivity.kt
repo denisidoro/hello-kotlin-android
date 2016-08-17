@@ -8,8 +8,10 @@ import com.beyondeye.reduks.rx.RxStore
 import com.beyondeye.reduks.rx.RxStoreSubscriber
 import com.github.denisidoro.hellokotlin.core.pattern.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.view.*
 import rx.subscriptions.CompositeSubscription
 import trikita.anvil.Anvil
+import trikita.anvil.Anvil.mount
 import trikita.anvil.DSL.*
 import trikita.anvil.RenderableView
 
@@ -36,7 +38,7 @@ class MainActivity : BaseActivity() {
         store.subscribeRx(subscriber)
 
         setSupportActionBar(toolbar)
-        
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -64,15 +66,15 @@ class MyRenderableView(activity: MainActivity, private val store: RxStore<Counte
     override fun view() {
         xml(R.layout.activity_main) {
 
-            withId(R.id.countTV) {
+            mount(countTV) {
                 text(store.state.i.toString())
             }
 
-            withId(R.id.minusBT) {
+            mount(plusBT) {
                 onClick { v -> store.dispatch(CounterActions.INCREMENT) }
             }
 
-            withId(R.id.plusBT) {
+            mount(minusBT) {
                 onClick { v -> store.dispatch(CounterActions.DECREMENT) }
             }
         }
@@ -85,4 +87,6 @@ class CounterStoreSubscriber(store: RxStore<CounterState>) : RxStoreSubscriber<C
         Anvil.render()
     }
 }
+
+
 
