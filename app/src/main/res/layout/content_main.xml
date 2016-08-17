@@ -25,17 +25,17 @@
         android:text="42"/>
 
     <Button
-        android:id="@+id/minusBT"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="-"
-        android:layout_margin="12dp"/>
-
-    <Button
         android:id="@+id/plusBT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="+"
+        android:layout_margin="12dp"/>
+
+    <Button
+        android:id="@+id/minusBT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="-"
         android:layout_margin="12dp"/>
 
 </LinearLayout>
