@@ -1,4 +1,4 @@
-package com.github.denisidoro.hellokotlin
+package com.github.denisidoro.hellokotlin.counter
 
 import com.beyondeye.reduks.Reducer
 
