@@ -5,9 +5,9 @@ import android.support.annotation.CallSuper
 import android.support.v7.app.AppCompatActivity
 import java.util.*
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity<S> : AppCompatActivity() {
 
-    val controllers = ArrayList<Controller>()
+    val controllers = ArrayList<Controller<S>>()
 
     @CallSuper
     override fun onDestroy() {
@@ -15,17 +15,26 @@ abstract class BaseActivity : AppCompatActivity() {
         controllers.forEach { it.unbind() }
     }
 
-    fun addController(controller: Controller) {
+    fun addController(controller: Controller<S>) {
         controllers.add(controller)
     }
 
-    abstract fun mainController(): Controller
+    abstract fun mainController(): Controller<S>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val mainController = mainController()
         setContentView(mainController.view)
         addController(mainController)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        mainController().save(outState)
+        super.onSaveInstanceState(outState)
+    }
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        mainController().load(savedInstanceState)
     }
 
 }
