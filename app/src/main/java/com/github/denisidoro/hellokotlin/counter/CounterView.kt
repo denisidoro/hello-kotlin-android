@@ -1,26 +1,29 @@
 package com.github.denisidoro.hellokotlin.counter
 
-import com.beyondeye.reduks.rx.RxStore
 import com.github.denisidoro.hellokotlin.R
+import com.github.denisidoro.hellokotlin.core.pattern.StateViewBinder
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.content_main.view.*
-import trikita.anvil.Anvil.mount
-import trikita.anvil.DSL.*
-import trikita.anvil.RenderableView
+import rx.Observable
+import trikita.anvil.Anvil
+import trikita.anvil.DSL
+import trikita.anvil.DSL.text
+import trikita.anvil.DSL.xml
 
-class CounterView(private val activity: CounterActivity, private val store: RxStore<CounterState>) : RenderableView(activity) {
-    override fun view() {
+class CounterView(activity: CounterActivity, stateChanges: Observable<CounterState>) : StateViewBinder<CounterState>(activity, stateChanges) {
+
+    override fun viewLayout(state: CounterState) {
         xml(R.layout.activity_main) {
-            mount(countTV) {
-                text(store.state.i.toString())
+            Anvil.mount(countTV) {
+                text(state.i.toString())
             }
 
-            mount(plusBT) {
-                onClick { v -> store.dispatch(CounterActions.INCREMENT) }
+            Anvil.mount(plusBT) {
+                DSL.onClick { v -> requestAction(CounterActions.INCREMENT) }
             }
 
-            mount(minusBT) {
-                onClick { v -> store.dispatch(CounterActions.DECREMENT) }
+            Anvil.mount(minusBT) {
+                DSL.onClick { v -> requestAction(CounterActions.DECREMENT) }
             }
         }
     }
