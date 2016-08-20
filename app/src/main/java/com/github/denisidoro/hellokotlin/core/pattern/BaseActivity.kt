@@ -12,9 +12,7 @@ abstract class BaseActivity<S> : AppCompatActivity() {
         controller.unbind()
     }
 
-    val controller: Controller<S> by lazy { getMainController() }
-
-    abstract fun getMainController(): Controller<S>
+    abstract val controller: Controller<S>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

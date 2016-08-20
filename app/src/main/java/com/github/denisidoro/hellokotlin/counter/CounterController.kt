@@ -6,7 +6,7 @@ class CounterController(activity: CounterActivity): Controller<CounterState>(act
 
     override fun getReducer() = CounterReducer()
     override fun getInitialState() = CounterState(42)
-    override val view = CounterViewViewBinder(activity, store)
+    override val view = CounterViewBinder(activity)
 
 }
 

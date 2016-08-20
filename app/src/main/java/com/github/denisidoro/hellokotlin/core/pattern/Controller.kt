@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.annotation.CallSuper
 import com.beyondeye.reduks.Reducer
 import com.beyondeye.reduks.Reduks
-import com.beyondeye.reduks.Store
 import com.beyondeye.reduks.StoreSubscriberBuilder
 import com.beyondeye.reduks.modules.ReduksContext
 import com.beyondeye.reduks.modules.ReduksModule
@@ -28,27 +27,10 @@ abstract class Controller<S>(val activity: BaseActivity<S>) {
                 getInitialState(),
                 START,
                 getReducer(),
-                StoreSubscriberBuilder<S> { getStoreSubscriber(it)}))
+                StoreSubscriberBuilder<S> { getStoreSubscriber(it as RxStore<S>) }))
     }
 
-    val store: RxStore<S> by lazy {
-        reduks.store as RxStore<S>
-    }
-
-    protected fun getStoreSubscriber(store: Store<S>): RxStoreSubscriber<S> {
-        return AnvilSubscriber(store as RxStore<S>)
-    }
-
-    init {
-        store.subscribeRx(reduks.storeSubscriber as RxStoreSubscriber)
-    }
-
-    //init {
-     //   storeSubscription
-//        view.dispatchRequests.subscribe {
-//            store.dispatch(it)
-//        }
-    //}
+    protected fun getStoreSubscriber(store: RxStore<S>): RxStoreSubscriber<S> = AnvilSubscriber(store, view)
 
     @CallSuper
     fun unbind() {
