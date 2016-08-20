@@ -4,29 +4,51 @@ import android.os.Bundle
 import android.support.annotation.CallSuper
 import com.beyondeye.reduks.Reducer
 import com.beyondeye.reduks.Reduks
+import com.beyondeye.reduks.Store
+import com.beyondeye.reduks.StoreSubscriberBuilder
 import com.beyondeye.reduks.modules.ReduksContext
+import com.beyondeye.reduks.modules.ReduksModule
 import com.beyondeye.reduks.rx.RxStore
+import com.beyondeye.reduks.rx.RxStoreSubscriber
 import com.beyondeye.reduksAndroid.activity.ActionRestoreState
 import rx.subscriptions.CompositeSubscription
 
-abstract class Controller<S>(val activity: BaseActivity<S>) : Reduks<S> {
+abstract class Controller<S>(val activity: BaseActivity<S>) {
 
     val subscription = CompositeSubscription()
-    override val ctx = ReduksContext(this.javaClass.name)
 
-    abstract val reducer: Reducer<S>
-    abstract val initialState: S
+    abstract fun getReducer(): Reducer<S>
+    abstract fun getInitialState(): S
     abstract val view: ViewBinder<S>
 
-    override val store = RxStore(initialState, reducer, subscription)
-    override val storeSubscriber = AnvilSubscriber(store)
-    override val storeSubscription = store.subscribeRx(storeSubscriber)
+    val reduks: Reduks<S> by lazy {
+        ReduksModule<S>(ReduksModule.Def<S>(
+                ReduksContext(this.javaClass.name),
+                RxStore.Factory<S>(subscription),
+                getInitialState(),
+                START,
+                getReducer(),
+                StoreSubscriberBuilder<S> { getStoreSubscriber(it)}))
+    }
+
+    val store: RxStore<S> by lazy {
+        reduks.store as RxStore<S>
+    }
+
+    protected fun getStoreSubscriber(store: Store<S>): RxStoreSubscriber<S> {
+        return AnvilSubscriber(store as RxStore<S>)
+    }
 
     init {
-        view.dispatchRequests.subscribe {
-            store.dispatch(it)
-        }
+        store.subscribeRx(reduks.storeSubscriber as RxStoreSubscriber)
     }
+
+    //init {
+     //   storeSubscription
+//        view.dispatchRequests.subscribe {
+//            store.dispatch(it)
+//        }
+    //}
 
     @CallSuper
     fun unbind() {
@@ -34,11 +56,11 @@ abstract class Controller<S>(val activity: BaseActivity<S>) : Reduks<S> {
     }
 
     fun save(outState: Bundle?) {
-        ActionRestoreState.saveReduksState(this, outState)
+        ActionRestoreState.saveReduksState(reduks, outState)
     }
 
     fun load(savedState: Bundle?) {
-        ActionRestoreState.restoreReduksState(this, savedState)
+        ActionRestoreState.restoreReduksState(reduks, savedState)
     }
 
 }

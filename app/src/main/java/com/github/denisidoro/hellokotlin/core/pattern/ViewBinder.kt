@@ -1,16 +1,14 @@
 package com.github.denisidoro.hellokotlin.core.pattern
 
-import rx.Observable
-import rx.subjects.PublishSubject
+import com.beyondeye.reduks.rx.RxStore
 import trikita.anvil.RenderableView
 
-abstract class ViewBinder<S>(val activity: BaseActivity<S>) : RenderableView(activity) {
+abstract class ViewBinder<S>(activity: BaseActivity<S>, private val store: RxStore<S>) : RenderableView(activity) {
 
-    private val dispatchRequestSubject: PublishSubject<Action> = PublishSubject.create()
-    val dispatchRequests: Observable<Action> = dispatchRequestSubject.asObservable()
+    fun getState() = store.state
 
-    protected fun requestAction(action: Action) {
-        dispatchRequestSubject.onNext(action)
+    protected fun dispatch(action: Action) {
+        store.dispatch(action)
     }
 
 }

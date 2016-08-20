@@ -4,7 +4,7 @@ import com.github.denisidoro.hellokotlin.core.pattern.BaseActivity
 
 class CounterActivity : BaseActivity<CounterState>() {
 
-    override fun mainController() = CounterController(this)
+    override fun getMainController() = CounterController(this)
 
 }
 

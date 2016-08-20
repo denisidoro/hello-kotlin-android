@@ -4,9 +4,9 @@ import com.github.denisidoro.hellokotlin.core.pattern.Controller
 
 class CounterController(activity: CounterActivity): Controller<CounterState>(activity) {
 
-    override val reducer = CounterReducer()
-    override val initialState = CounterState(42)
-    override val view = CounterView(activity, store.stateChanges)
+    override fun getReducer() = CounterReducer()
+    override fun getInitialState() = CounterState(42)
+    override val view = CounterViewViewBinder(activity, store)
 
 }
 
