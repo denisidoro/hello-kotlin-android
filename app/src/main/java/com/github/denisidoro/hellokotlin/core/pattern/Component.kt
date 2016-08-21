@@ -12,13 +12,14 @@ import com.beyondeye.reduks.rx.RxStoreSubscriber
 import com.beyondeye.reduksAndroid.activity.ActionRestoreState
 import rx.subscriptions.CompositeSubscription
 
-abstract class Controller<S>(val activity: BaseActivity<S>) {
+abstract class Component<S>(val activity: BaseActivity<S>) {
 
     val subscription = CompositeSubscription()
 
     abstract fun getReducer(): Reducer<S>
     abstract fun getInitialState(): S
-    abstract val view: ViewBinder<S>
+    protected fun getStoreSubscriber(store: RxStore<S>): RxStoreSubscriber<S> = AnvilSubscriber(store)
+    abstract val view: View<S>
 
     val reduks: Reduks<S> by lazy {
         ReduksModule<S>(ReduksModule.Def<S>(
@@ -29,8 +30,6 @@ abstract class Controller<S>(val activity: BaseActivity<S>) {
                 getReducer(),
                 StoreSubscriberBuilder<S> { getStoreSubscriber(it as RxStore<S>) }))
     }
-
-    protected fun getStoreSubscriber(store: RxStore<S>): RxStoreSubscriber<S> = AnvilSubscriber(store, view)
 
     @CallSuper
     fun unbind() {

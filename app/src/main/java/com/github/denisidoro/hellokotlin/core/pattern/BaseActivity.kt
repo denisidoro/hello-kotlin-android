@@ -6,27 +6,27 @@ import android.support.v7.app.AppCompatActivity
 
 abstract class BaseActivity<S> : AppCompatActivity() {
 
-    @CallSuper
-    override fun onDestroy() {
-        super.onDestroy()
-        controller.unbind()
-    }
-
-    abstract val controller: Controller<S>
+    abstract val component: Component<S>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(controller.view)
+        setContentView(component.view)
+    }
+
+    @CallSuper
+    override fun onDestroy() {
+        super.onDestroy()
+        component.unbind()
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
-        controller.save(outState)
+        component.save(outState)
         super.onSaveInstanceState(outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
-        controller.load(savedInstanceState)
+        component.load(savedInstanceState)
     }
 
 }
