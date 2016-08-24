@@ -6,7 +6,7 @@ import com.github.denisidoro.hellokotlin.core.dagger.components.ActivityTopCompo
 import com.github.denisidoro.hellokotlin.core.dagger.components.ApplicationComponent;
 import com.github.denisidoro.hellokotlin.core.dagger.components.ApplicationTopComponent;
 import com.github.denisidoro.hellokotlin.core.dagger.modules.ActivityModule;
-import com.github.denisidoro.hellokotlin.core.pattern.BaseActivity;
+import com.github.denisidoro.hellokotlin.core.pattern.activity.BaseActivity;
 
 public class Injector implements InjectorInterface {
 

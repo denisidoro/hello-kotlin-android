@@ -1,22 +1,12 @@
 package com.github.denisidoro.hellokotlin.counter
 
-import com.beyondeye.reduks.rx.RxStore
-import com.github.denisidoro.hellokotlin.core.pattern.AnvilSubscriber
-import com.github.denisidoro.hellokotlin.core.pattern.Controller
+import com.github.denisidoro.hellokotlin.core.pattern.controller.ModelController
 
-class CounterController(activity: CounterActivity): Controller(activity) {
+class CounterController(activity: CounterActivity): ModelController<CounterState, CounterState>(activity) {
 
-    val reducer = CounterReducer()
-    val state = CounterState(42)
-    val store = RxStore(state, reducer, subscription)
-    val subscriber = AnvilSubscriber(store)
-
-    init {
-        store.subscribeRx(subscriber)
-    }
-
-    override val view = CounterView(activity, store)
+    override fun getReducer() = CounterReducer()
+    override fun getInitialState() = CounterState(43)
+    override fun getModel() = getState()
+    override val view = CounterView(activity, proxy)
 
 }
-
-
