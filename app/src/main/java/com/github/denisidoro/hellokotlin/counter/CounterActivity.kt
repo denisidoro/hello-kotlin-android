@@ -4,7 +4,7 @@ import com.github.denisidoro.hellokotlin.core.pattern.activity.BaseActivity
 
 class CounterActivity : BaseActivity<CounterState>() {
 
-    override val component by lazy { CounterComponent(this) }
+    override val controller by lazy { CounterController(this) }
 
 }
 

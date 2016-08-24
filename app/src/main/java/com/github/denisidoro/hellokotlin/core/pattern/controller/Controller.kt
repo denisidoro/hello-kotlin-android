@@ -10,20 +10,22 @@ import com.beyondeye.reduks.modules.ReduksModule
 import com.beyondeye.reduks.rx.RxStore
 import com.beyondeye.reduks.rx.RxStoreSubscriber
 import com.beyondeye.reduksAndroid.activity.ActionRestoreState
+import com.github.denisidoro.hellokotlin.core.pattern.action.Action
 import com.github.denisidoro.hellokotlin.core.pattern.action.START
 import com.github.denisidoro.hellokotlin.core.pattern.activity.BaseActivity
+import com.github.denisidoro.hellokotlin.core.pattern.proxy.Proxy
 import com.github.denisidoro.hellokotlin.core.pattern.subscriber.AnvilSubscriber
 import com.github.denisidoro.hellokotlin.core.pattern.view.View
 import rx.subscriptions.CompositeSubscription
 
-abstract class Component<S, M>(val activity: BaseActivity<S>) {
+abstract class Controller<S>(val activity: BaseActivity<S>) {
 
     val subscription = CompositeSubscription()
 
     abstract fun getReducer(): Reducer<S>
     abstract fun getInitialState(): S
     protected fun getStoreSubscriber(store: RxStore<S>): RxStoreSubscriber<S> = AnvilSubscriber(store)
-    abstract val view: View<S>
+    abstract val view: View
 
     val reduks: Reduks<S> by lazy {
         ReduksModule<S>(ReduksModule.Def<S>(
@@ -35,7 +37,10 @@ abstract class Component<S, M>(val activity: BaseActivity<S>) {
                 StoreSubscriberBuilder<S> { getStoreSubscriber(it as RxStore<S>) }))
     }
 
-    val state = reduks.store.state
+    val getState: () -> S = { reduks.store.state }
+    val dispatch: (Action) -> Unit = { reduks.store.dispatch(it) }
+
+    open val proxy: Proxy = Proxy(dispatch)
 
     @CallSuper
     fun unbind() {
