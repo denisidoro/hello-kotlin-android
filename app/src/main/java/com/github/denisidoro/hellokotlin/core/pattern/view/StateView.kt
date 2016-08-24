@@ -1,6 +1,7 @@
-package com.github.denisidoro.hellokotlin.core.pattern
+package com.github.denisidoro.hellokotlin.core.pattern.view
 
 import com.beyondeye.reduks.Store
+import com.github.denisidoro.hellokotlin.core.pattern.activity.BaseActivity
 
 abstract class StateView<S>(activity: BaseActivity<S>, store: Store<S>) : View<S>(activity, store) {
 

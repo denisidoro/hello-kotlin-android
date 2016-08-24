@@ -1,4 +1,4 @@
-package com.github.denisidoro.hellokotlin.core.pattern
+package com.github.denisidoro.hellokotlin.core.pattern.controller
 
 import android.os.Bundle
 import android.support.annotation.CallSuper
@@ -10,9 +10,13 @@ import com.beyondeye.reduks.modules.ReduksModule
 import com.beyondeye.reduks.rx.RxStore
 import com.beyondeye.reduks.rx.RxStoreSubscriber
 import com.beyondeye.reduksAndroid.activity.ActionRestoreState
+import com.github.denisidoro.hellokotlin.core.pattern.action.START
+import com.github.denisidoro.hellokotlin.core.pattern.activity.BaseActivity
+import com.github.denisidoro.hellokotlin.core.pattern.subscriber.AnvilSubscriber
+import com.github.denisidoro.hellokotlin.core.pattern.view.View
 import rx.subscriptions.CompositeSubscription
 
-abstract class Component<S>(val activity: BaseActivity<S>) {
+abstract class Component<S, M>(val activity: BaseActivity<S>) {
 
     val subscription = CompositeSubscription()
 
@@ -30,6 +34,8 @@ abstract class Component<S>(val activity: BaseActivity<S>) {
                 getReducer(),
                 StoreSubscriberBuilder<S> { getStoreSubscriber(it as RxStore<S>) }))
     }
+
+    val state = reduks.store.state
 
     @CallSuper
     fun unbind() {

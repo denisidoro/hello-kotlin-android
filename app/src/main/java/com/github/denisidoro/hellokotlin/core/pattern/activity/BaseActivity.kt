@@ -1,8 +1,9 @@
-package com.github.denisidoro.hellokotlin.core.pattern
+package com.github.denisidoro.hellokotlin.core.pattern.activity
 
 import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.support.v7.app.AppCompatActivity
+import com.github.denisidoro.hellokotlin.core.pattern.controller.Component
 
 abstract class BaseActivity<S> : AppCompatActivity() {
 

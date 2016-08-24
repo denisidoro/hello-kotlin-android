@@ -3,7 +3,7 @@ package com.github.denisidoro.hellokotlin.core.dagger.modules;
 import android.content.Context;
 
 import com.github.denisidoro.hellokotlin.core.dagger.scopes.PerActivity;
-import com.github.denisidoro.hellokotlin.core.pattern.BaseActivity;
+import com.github.denisidoro.hellokotlin.core.pattern.activity.BaseActivity;
 
 import javax.inject.Named;
 

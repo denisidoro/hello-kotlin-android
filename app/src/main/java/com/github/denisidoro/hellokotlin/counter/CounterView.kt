@@ -1,18 +1,18 @@
 package com.github.denisidoro.hellokotlin.counter
 
-import com.beyondeye.reduks.Store
 import com.github.denisidoro.hellokotlin.R
-import com.github.denisidoro.hellokotlin.core.pattern.StateView
+import com.github.denisidoro.hellokotlin.core.pattern.action.Action
+import com.github.denisidoro.hellokotlin.core.pattern.view.ModelView
 import kotlinx.android.synthetic.main.content_main.view.*
 import trikita.anvil.Anvil
 import trikita.anvil.DSL.*
 
-class CounterView(activity: CounterActivity, store: Store<CounterState>) : StateView<CounterState>(activity, store) {
+class CounterView(activity: CounterActivity, dispatch: (action: Action) -> Unit, getModel: () -> CounterState) : ModelView<CounterState>(activity, dispatch, getModel) {
 
     override fun view(state: CounterState) {
         xml(R.layout.activity_main) {
             Anvil.mount(countTV) {
-                text(state.i.toString())
+                text(state.i.toString() + " hi")
             }
 
             Anvil.mount(plusBT) {
@@ -24,7 +24,5 @@ class CounterView(activity: CounterActivity, store: Store<CounterState>) : State
             }
         }
     }
-
 }
-
 
