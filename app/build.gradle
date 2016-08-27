@@ -176,8 +176,6 @@ dependencies {
     androidTestCompile libraries.dexmakerMockito
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    /* Testing
-
     // Espresso
     androidTestCompile libraries.espressoCore
     androidTestCompile libraries.espressoIntents
@@ -191,12 +189,14 @@ dependencies {
     androidTestCompile libraries.runner
     androidTestCompile libraries.rules
 
+    // Robolectric
+    testCompile libraries.robolectric
+
     // Mockito
     testCompile libraries.mockito
     androidTestCompile libraries.mockito
 
     // JUnit
     testCompile libraries.junit
-    */
 
 }

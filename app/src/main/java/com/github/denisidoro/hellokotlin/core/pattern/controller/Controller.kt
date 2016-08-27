@@ -25,7 +25,7 @@ abstract class Controller<S>(val activity: BaseActivity<S>) {
     protected fun getStoreSubscriber(store: RxStore<S>): RxStoreSubscriber<S> = AnvilSubscriber(store)
     abstract val view: View
 
-    val reduks: Reduks<S> by lazy {
+    protected val reduks: Reduks<S> by lazy {
         val ctx = ReduksContext(this.javaClass.name)
         ReduksModule<S>(ReduksModule.Def<S>(
                 ctx,

@@ -1,9 +1,9 @@
 package com.github.denisidoro.hellokotlin.core.pattern.view
 
-import com.github.denisidoro.hellokotlin.core.pattern.activity.BaseActivity
+import android.support.v7.app.AppCompatActivity
 import com.github.denisidoro.hellokotlin.core.pattern.proxy.ModelProxy
 
-abstract class ModelView<M>(activity: BaseActivity<*>, private val proxy: ModelProxy<M>) : View(activity, proxy) {
+abstract class ModelView<M>(activity: AppCompatActivity, private val proxy: ModelProxy<M>) : View(activity, proxy) {
 
     override fun view() {
         view(proxy.getModel())

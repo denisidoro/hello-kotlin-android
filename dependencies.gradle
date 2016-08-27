@@ -83,6 +83,9 @@ ext.libraries = [
         powerMockMockito      : "org.powermock:powermock-api-mockito:$versions.powerMock",
         mockWebServer         : "com.squareup.okhttp3:mockwebserver:$versions.okhttp",
 
+        // Robolectric
+        robolectric           : "org.robolectric:robolectric:3.1.2",
+
         // JUnit
         junit                 : "junit:junit:4.12",
 
