@@ -19,9 +19,6 @@ public class ActivityModule {
         this.activity = activity;
     }
 
-    public ActivityModule () {
-    }
-
     /**
      * Expose the context to the graph.
      */

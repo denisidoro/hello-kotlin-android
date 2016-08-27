@@ -13,13 +13,16 @@ class CounterView(activity: AppCompatActivity, proxy: ModelProxy<CounterViewMode
     override fun view(model: CounterViewModel) {
         xml(R.layout.activity_main) {
             mount(countTV) {
-                text(model.text)
+                text(model.counterText)
             }
             mount(plusBT) {
                 onClick { v -> dispatch(CounterActions.INCREMENT) }
             }
             mount(minusBT) {
                 onClick { v -> dispatch(CounterActions.DECREMENT) }
+            }
+            mount(userTV) {
+                text(model.apiText)
             }
         }
     }

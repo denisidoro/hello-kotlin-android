@@ -3,11 +3,15 @@ package com.github.denisidoro.hellokotlin.core.dagger.modules;
 import android.app.Application;
 import android.content.Context;
 
+import com.github.denisidoro.hellokotlin.provider.NorrisProvider;
+import com.google.gson.Gson;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
 
 @Module
 public class ApplicationModule {
@@ -32,6 +36,24 @@ public class ApplicationModule {
     @Named("applicationContext")
     Context provideContext () {
         return application;
+    }
+
+    @Provides
+    @Singleton
+    OkHttpClient provideOkHttpClient () {
+        return new OkHttpClient();
+    }
+
+    @Provides
+    @Singleton
+    Gson provideGson() {
+        return new Gson();
+    }
+
+    @Provides
+    @Singleton
+    NorrisProvider provideNorrisProvider(OkHttpClient client, Gson gson) {
+        return new NorrisProvider(client, gson);
     }
 
 }
