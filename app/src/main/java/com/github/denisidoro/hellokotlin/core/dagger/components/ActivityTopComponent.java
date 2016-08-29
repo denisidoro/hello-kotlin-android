@@ -1,10 +1,10 @@
 package com.github.denisidoro.hellokotlin.core.dagger.components;
 
-import com.github.denisidoro.hellokotlin.counter.CounterController;
+import com.github.denisidoro.hellokotlin.counter.CounterMiddleware;
 
 import org.jetbrains.annotations.NotNull;
 
 public interface ActivityTopComponent {
 
-    void inject (@NotNull CounterController counterController);
+    void inject (@NotNull CounterMiddleware cm);
 }

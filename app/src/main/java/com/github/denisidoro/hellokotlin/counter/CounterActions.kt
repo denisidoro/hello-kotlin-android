@@ -5,6 +5,6 @@ import com.github.denisidoro.hellokotlin.model.Joke
 sealed class CounterActions {
     object INCREMENT
     object DECREMENT
-    //data class REQUEST_JOKE(val id: Int)
+    object JOKE_REQUEST
     data class JOKE_LOADED(val joke: Joke)
 }

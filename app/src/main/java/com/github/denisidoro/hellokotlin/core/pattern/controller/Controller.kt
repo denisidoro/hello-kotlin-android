@@ -23,23 +23,27 @@ abstract class Controller<S>(val activity: BaseActivity<S>) {
     abstract fun getReducer(): Reducer<S>
     abstract fun getInitialState(): S
     protected fun getStoreSubscriber(store: RxStore<S>): RxStoreSubscriber<S> = AnvilSubscriber(store)
-    abstract val view: View
 
     protected val reduks: Reduks<S> by lazy {
         val ctx = ReduksContext(this.javaClass.name)
-        ReduksModule<S>(ReduksModule.Def<S>(
+        val r = ReduksModule<S>(ReduksModule.Def<S>(
                 ctx,
                 RxStore.Factory<S>(subscription),
                 getInitialState(),
                 ctx,
                 getReducer(),
                 StoreSubscriberBuilder<S> { getStoreSubscriber(it as RxStore<S>) }))
+        afterReduksSetup(r)
+        r
     }
 
-    val getState: () -> S = { reduks.store.state }
-    val dispatch = reduks.store.dispatch
+    open fun afterReduksSetup(r: ReduksModule<S>): Unit {}
 
-    open val proxy: Proxy = Proxy(dispatch)
+    val getState: () -> S = { reduks.store.state }
+    val dispatch by lazy { reduks.store.dispatch }
+
+    open val proxy: Proxy by lazy { Proxy(dispatch) }
+    abstract val view: View
 
     @CallSuper
     fun unbind() {
