@@ -21,7 +21,7 @@ class CounterMiddleware(activity: BaseActivity<CounterState>) : Middleware<Count
     val subscription = CompositeSubscription()
 
     init {
-        Injector.get().activityComponent(activity).inject(this)
+        Injector.get().applicationComponent().inject(this)
     }
 
     override fun dispatch(store: Store<CounterState>, next: NextDispatcher, action: Any?) {

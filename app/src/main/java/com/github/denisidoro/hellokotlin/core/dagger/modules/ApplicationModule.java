@@ -16,7 +16,7 @@ import okhttp3.OkHttpClient;
 @Module
 public class ApplicationModule {
 
-    final Application application;
+    public final Application application;
 
     public ApplicationModule (Application application) {
         this.application = application;

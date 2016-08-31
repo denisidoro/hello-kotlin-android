@@ -13,6 +13,8 @@ android {
         minSdkVersion 15
         targetSdkVersion 23
         versionName release_versions.VERSION_NAME
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
 
     testOptions {
@@ -100,10 +102,6 @@ android {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
         exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
         exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
-    }
-
-    defaultConfig {
-        vectorDrawables.useSupportLibrary = true
     }
 
 }

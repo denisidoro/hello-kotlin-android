@@ -7,9 +7,9 @@ import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import rx.Single
 
-class NorrisProvider(val client: OkHttpClient, val gson: Gson) {
+open class NorrisProvider(val client: OkHttpClient, val gson: Gson) {
 
-    fun getJoke(id: Int): Single<Joke> = client
+    open fun getJoke(id: Int): Single<Joke> = client
             .toObservable("http://api.icndb.com/jokes/$id")
             .parse(gson, Joke::class.java)
             .toSingle();
