@@ -9,4 +9,6 @@ class CounterViewModel(context: Context, state: CounterState) {
 
     val apiText = if (state.joke != null) state.joke.value.joke else ""
 
+    val isLoading: Boolean = state.joke == null
+
 }

@@ -11,6 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main"
+    android:background="#ffcccc"
     android:orientation="vertical">
 
     <TextView
@@ -43,5 +44,11 @@
         android:layout_height="wrap_content"
         tools:text="lorem ipsum"
         android:layout_margin="12dp"/>
+
+    <ProgressBar
+        android:id="@+id/loading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="100dip"
+        android:layout_height="100dip"/>
 
 </LinearLayout>

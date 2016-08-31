@@ -18,12 +18,18 @@ class CounterView(activity: AppCompatActivity, proxy: ModelProxy<CounterViewMode
             }
             mount(plusBT) {
                 onClick { v -> dispatch(INCREMENT); dispatch(JOKE_REQUEST) }
+                enabled(!model.isLoading)
             }
             mount(minusBT) {
                 onClick { v -> dispatch(DECREMENT); dispatch(JOKE_REQUEST) }
+                enabled(!model.isLoading)
             }
             mount(userTV) {
                 text(model.apiText)
+                visibility(!model.isLoading)
+            }
+            mount(loading) {
+                visibility(model.isLoading)
             }
         }
     }

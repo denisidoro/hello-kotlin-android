@@ -12,4 +12,8 @@ CounterController(activity: CounterActivity) : ModelController<CounterState, Cou
     override fun getMiddlewares(): Array<Middleware<CounterState>> = arrayOf(CounterMiddleware(activity))
     override val view = CounterView(activity, proxy)
 
+    init {
+        dispatch(CounterActions.JOKE_REQUEST)
+    }
+
 }
