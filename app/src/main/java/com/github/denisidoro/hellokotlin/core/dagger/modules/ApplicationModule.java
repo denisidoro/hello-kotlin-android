@@ -5,7 +5,7 @@ import android.content.Context;
 
 import com.github.denisidoro.hellokotlin.core.rx.MultiThreadRxScheduler;
 import com.github.denisidoro.hellokotlin.core.rx.RxScheduler;
-import com.github.denisidoro.hellokotlin.provider.NorrisProvider;
+import com.github.denisidoro.hellokotlin.manager.NorrisManager;
 import com.google.gson.Gson;
 
 import javax.inject.Named;
@@ -59,8 +59,8 @@ public class ApplicationModule implements ApplicationProvider {
     @Override
     @Provides
     @Singleton
-    public NorrisProvider provideNorrisProvider (OkHttpClient client, Gson gson) {
-        return new NorrisProvider(client, gson);
+    public NorrisManager provideNorrisManager (OkHttpClient client, Gson gson) {
+        return new NorrisManager(client, gson);
     }
 
     @Override

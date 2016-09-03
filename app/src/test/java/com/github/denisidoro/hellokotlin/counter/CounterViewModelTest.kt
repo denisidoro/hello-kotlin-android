@@ -15,6 +15,6 @@ class CounterViewModelTest {
     @Test
     fun testGetText() {
         val viewModel = CounterViewModel(application, CounterState(33, null))
-        assertEquals("44 hi", viewModel.counterText)
+        assertEquals("33", viewModel.counterText)
     }
 }

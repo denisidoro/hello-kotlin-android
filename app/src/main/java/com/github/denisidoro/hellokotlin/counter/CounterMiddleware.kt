@@ -4,19 +4,20 @@ import com.beyondeye.reduks.Middleware
 import com.beyondeye.reduks.NextDispatcher
 import com.beyondeye.reduks.Store
 import com.github.denisidoro.hellokotlin.core.dagger.Injector
-import com.github.denisidoro.hellokotlin.core.pattern.activity.BaseActivity
+import com.github.denisidoro.hellokotlin.core.rx.RxScheduler
+import com.github.denisidoro.hellokotlin.core.rx.applyScheduler
 import com.github.denisidoro.hellokotlin.counter.CounterActions.JOKE_LOADED
 import com.github.denisidoro.hellokotlin.counter.CounterActions.JOKE_REQUEST
-import com.github.denisidoro.hellokotlin.provider.NorrisProvider
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
+import com.github.denisidoro.hellokotlin.manager.NorrisManager
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
-class CounterMiddleware(activity: BaseActivity<CounterState>) : Middleware<CounterState> {
+class CounterMiddleware() : Middleware<CounterState> {
 
     @Inject
-    lateinit var norrisProvider: NorrisProvider
+    lateinit var norrisManager: NorrisManager
+    @Inject
+    lateinit var scheduler: RxScheduler
 
     val subscription = CompositeSubscription()
 
@@ -27,9 +28,8 @@ class CounterMiddleware(activity: BaseActivity<CounterState>) : Middleware<Count
     override fun dispatch(store: Store<CounterState>, next: NextDispatcher, action: Any?) {
         when (action) {
             is JOKE_REQUEST -> {
-                subscription.add(norrisProvider.getJoke(store.state.i)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
+                subscription.add(norrisManager.getJoke(store.state.i)
+                        .applyScheduler(scheduler)
                         .subscribe { next.dispatch(JOKE_LOADED(it)) })
             }
             else -> next.dispatch(action)

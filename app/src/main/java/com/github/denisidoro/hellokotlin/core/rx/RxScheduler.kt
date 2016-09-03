@@ -13,7 +13,7 @@ interface RxScheduler {
 
 }
 
-fun <T> Observable<T>.apply(scheduler: RxScheduler) = compose({ observable ->
+fun <T> Observable<T>.applyScheduler(scheduler: RxScheduler) = compose({ observable ->
     observable
             .subscribeOn(scheduler.background)
             .observeOn(scheduler.mainThread)
@@ -21,14 +21,14 @@ fun <T> Observable<T>.apply(scheduler: RxScheduler) = compose({ observable ->
 })
 
 
-fun <T> Single<T>.apply(scheduler: RxScheduler) = compose({ single ->
+fun <T> Single<T>.applyScheduler(scheduler: RxScheduler) = compose({ single ->
     single
             .subscribeOn(scheduler.background)
             .observeOn(scheduler.mainThread)
             .doOnError { throwable -> throwable.printStackTrace() }
 })
 
-fun Completable.apply(scheduler: RxScheduler) = compose({ completable ->
+fun Completable.applyScheduler(scheduler: RxScheduler) = compose({ completable ->
     completable
             .subscribeOn(scheduler.background)
             .observeOn(scheduler.mainThread)

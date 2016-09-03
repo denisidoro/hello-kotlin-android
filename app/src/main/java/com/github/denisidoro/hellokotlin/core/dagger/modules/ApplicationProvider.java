@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.github.denisidoro.hellokotlin.core.rx.RxScheduler;
-import com.github.denisidoro.hellokotlin.provider.NorrisProvider;
+import com.github.denisidoro.hellokotlin.manager.NorrisManager;
 import com.google.gson.Gson;
 
 import okhttp3.OkHttpClient;
@@ -19,7 +19,7 @@ public interface ApplicationProvider {
 
     Gson provideGson ();
 
-    NorrisProvider provideNorrisProvider (OkHttpClient client, Gson gson);
+    NorrisManager provideNorrisManager (OkHttpClient client, Gson gson);
 
     RxScheduler provideRxScheduler ();
 }

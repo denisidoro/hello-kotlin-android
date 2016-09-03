@@ -17,6 +17,8 @@ abstract class View(val activity: AppCompatActivity, private val proxy: Proxy): 
         Anvil.unmount(this)
     }
 
-    val dispatch = proxy.dispatch
+    fun dispatch (vararg actions: Any) {
+        actions.forEach { proxy.dispatch(it) }
+    }
 
 }

@@ -9,7 +9,8 @@ CounterController(activity: CounterActivity) : ModelController<CounterState, Cou
     override fun getReducer() = CounterReducer()
     override fun getInitialState() = CounterState(43, null)
     override fun getModel() = CounterViewModel(activity, getState())
-    override fun getMiddlewares(): Array<Middleware<CounterState>> = arrayOf(CounterMiddleware(activity))
+    override fun getMiddlewares(): Array<Middleware<CounterState>> =
+            arrayOf(CounterMiddleware())
     override val view = CounterView(activity, proxy)
 
     init {

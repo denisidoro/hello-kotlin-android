@@ -1,4 +1,4 @@
-package com.github.denisidoro.hellokotlin.provider
+package com.github.denisidoro.hellokotlin.manager
 
 import com.github.denisidoro.hellokotlin.model.Joke
 import com.github.denisidoro.hellokotlin.utils.parse
@@ -7,7 +7,7 @@ import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import rx.Single
 
-open class NorrisProvider(val client: OkHttpClient, val gson: Gson) {
+open class NorrisManager(val client: OkHttpClient, val gson: Gson) {
 
     open fun getJoke(id: Int): Single<Joke> = client
             .toObservable("http://api.icndb.com/jokes/$id")

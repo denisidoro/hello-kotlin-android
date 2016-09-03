@@ -1,10 +1,12 @@
 package com.github.denisidoro.hellokotlin.counter
 
 import android.content.Intent
-import android.os.SystemClock
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
+import com.github.denisidoro.hellokotlin.R
 import com.github.denisidoro.hellokotlin.core.dagger.DaggerEspressoMock
+import com.github.denisidoro.hellokotlin.helpers.EspressoUtils.click
+import com.github.denisidoro.hellokotlin.helpers.EspressoUtils.isDisplayed
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -23,9 +25,15 @@ class CounterActivityTest {
     }
 
     @Test
-    fun firstTest() {
+    fun bindings() {
         givenActivityReady()
-        SystemClock.sleep(1010000)
+
+        isDisplayed("43")
+        isDisplayed(R.id.minusBT, R.id.plusBT)
+
+        click(R.id.plusBT)
+        isDisplayed("44")
+        isDisplayed("mocked joke 44")
     }
 
     fun givenActivityReady() {

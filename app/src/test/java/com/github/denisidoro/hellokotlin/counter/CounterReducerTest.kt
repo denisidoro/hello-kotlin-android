@@ -21,7 +21,7 @@ class CounterReducerTest {
     @Test
     fun decrement() {
         val newState = reducer.reduce(state, CounterActions.DECREMENT)
-        assertEquals(4, newState.i)
+        assertEquals(2, newState.i)
         assertNull(newState.joke)
     }
 
