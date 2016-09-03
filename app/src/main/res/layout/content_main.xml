@@ -54,10 +54,13 @@
         android:layout_margin="12dp"/>
 
     <ProgressBar
+        android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
         android:id="@+id/loading"
         style="?android:attr/progressBarStyle"
-        android:layout_width="80dip"
-        android:layout_height="80dip"/>
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/custom_progress"
+        android:layout_width="45dip"
+        android:layout_height="45dip"/>
 
 </LinearLayout>
