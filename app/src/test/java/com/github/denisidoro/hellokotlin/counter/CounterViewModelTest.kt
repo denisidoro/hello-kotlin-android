@@ -4,7 +4,7 @@ import com.github.denisidoro.hellokotlin.BuildConfig
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricGradleTestRunner
-import org.robolectric.RuntimeEnvironment
+import org.robolectric.RuntimeEnvironment.application
 import org.robolectric.annotation.Config
 import kotlin.test.assertEquals
 
@@ -14,7 +14,7 @@ class CounterViewModelTest {
 
     @Test
     fun testGetText() {
-        val viewModel = CounterViewModel(RuntimeEnvironment.application, 44)
-        assertEquals("44 hi", viewModel.text)
+        val viewModel = CounterViewModel(application, CounterState(33, null))
+        assertEquals("44 hi", viewModel.counterText)
     }
 }

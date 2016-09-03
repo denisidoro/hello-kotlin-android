@@ -3,7 +3,6 @@ package com.github.denisidoro.hellokotlin.core.dagger.modules;
 import android.app.Application;
 import android.content.Context;
 
-import com.github.denisidoro.hellokotlin.core.rx.MultiThreadRxScheduler;
 import com.github.denisidoro.hellokotlin.core.rx.RxScheduler;
 import com.github.denisidoro.hellokotlin.provider.NorrisProvider;
 import com.google.gson.Gson;
@@ -16,58 +15,55 @@ import dagger.Provides;
 import okhttp3.OkHttpClient;
 
 @Module
-public class ApplicationModule implements ApplicationProvider {
+public class TestApplicationModule implements ApplicationProvider {
 
-    public final Application application;
+    public final ApplicationProvider provider;
 
-    public ApplicationModule (Application application) {
-        this.application = application;
+    public TestApplicationModule (ApplicationProvider provider) {
+        this.provider = provider;
     }
 
-    /**
-     * Expose the application to the graph.
-     */
-    @Override
     @Provides
     @Singleton
+    @Override
     public Application provideApplication () {
-        return application;
+        return provider.provideApplication();
     }
 
-    @Override
     @Provides
     @Singleton
+    @Override
     @Named("applicationContext")
     public Context provideContext () {
-        return application;
+        return provider.provideContext();
     }
 
-    @Override
     @Provides
     @Singleton
+    @Override
     public OkHttpClient provideOkHttpClient () {
-        return new OkHttpClient();
+        return provider.provideOkHttpClient();
     }
 
-    @Override
     @Provides
     @Singleton
-    public Gson provideGson () {
-        return new Gson();
+    @Override
+    public Gson provideGson() {
+        return provider.provideGson();
     }
 
-    @Override
     @Provides
     @Singleton
-    public NorrisProvider provideNorrisProvider (OkHttpClient client, Gson gson) {
-        return new NorrisProvider(client, gson);
+    @Override
+    public NorrisProvider provideNorrisProvider(OkHttpClient client, Gson gson) {
+        return provider.provideNorrisProvider(client, gson);
     }
 
-    @Override
     @Provides
     @Singleton
-    public RxScheduler provideRxScheduler () {
-        return new MultiThreadRxScheduler();
+    @Override
+    public RxScheduler provideRxScheduler() {
+        return provider.provideRxScheduler();
     }
 
 }

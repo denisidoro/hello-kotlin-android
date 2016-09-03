@@ -1,5 +1,6 @@
 package com.github.denisidoro.hellokotlin.core.dagger.components;
 
+import com.github.denisidoro.hellokotlin.core.dagger.modules.ApplicationProvider;
 import com.github.denisidoro.hellokotlin.core.dagger.modules.TestApplicationModule;
 
 import javax.inject.Singleton;
@@ -17,10 +18,10 @@ public interface TestApplicationComponent extends ApplicationTopComponent {
         private Initializer () {
         } // No instances.
 
-        public static TestApplicationComponent init (TestApplicationModule applicationModule) {
+        public static TestApplicationComponent init (ApplicationProvider provider) {
 
             return DaggerTestApplicationComponent.builder()
-                    .testApplicationModule(applicationModule).build();
+                    .testApplicationModule(new TestApplicationModule(provider)).build();
         }
     }
 

@@ -5,18 +5,18 @@ import android.app.Application;
 import com.github.denisidoro.hellokotlin.core.dagger.components.ActivityTopComponent;
 import com.github.denisidoro.hellokotlin.core.dagger.components.TestApplicationComponent;
 import com.github.denisidoro.hellokotlin.core.dagger.modules.ActivityModule;
-import com.github.denisidoro.hellokotlin.core.dagger.modules.TestApplicationModule;
+import com.github.denisidoro.hellokotlin.core.dagger.modules.ApplicationProvider;
 import com.github.denisidoro.hellokotlin.core.pattern.activity.BaseActivity;
 
 import org.mockito.Mockito;
 
-public class EspressoInjector extends Injector {
+public class TestInjector extends Injector {
 
-    public EspressoInjector () {}
+    public TestInjector () {}
 
-    public EspressoInjector (TestApplicationModule module) {
-        applicationComponent(module.application);
-        setupComponent(module);
+    public TestInjector (ApplicationProvider provider) {
+        applicationComponent(provider.provideApplication());
+        setupComponent(provider);
     }
 
     public interface OnDaggerModuleAddedCallback {
@@ -30,12 +30,8 @@ public class EspressoInjector extends Injector {
         this.application = application;
     }
 
-    public void setupComponent () {
-        applicationComponent = TestApplicationComponent.Initializer.init(new TestApplicationModule(application));
-    }
-
-    public void setupComponent (TestApplicationModule module) {
-        applicationComponent = TestApplicationComponent.Initializer.init(module);
+    public void setupComponent (ApplicationProvider provider) {
+        applicationComponent = TestApplicationComponent.Initializer.init(provider);
     }
 
     @Override
@@ -49,9 +45,9 @@ public class EspressoInjector extends Injector {
         return true;
     }
 
-    /*public void setup (ApplicationProviderInterface applicationProviderInterface, OnDaggerModuleAddedCallback callback) throws DaggerException {
+    /*public void setup (ApplicationProvider applicationProviderInterface, OnDaggerModuleAddedCallback callback) throws DaggerException {
         if (applicationProviderInterface == null) {
-            throw new DaggerException("ApplicationProviderInterface can't be null");
+            throw new DaggerException("ApplicationProvider can't be null");
         }
         setApplicationProvider(applicationProviderInterface);
         initialize();

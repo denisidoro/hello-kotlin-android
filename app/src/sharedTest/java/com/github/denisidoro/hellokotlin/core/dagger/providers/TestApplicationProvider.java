@@ -1,10 +1,11 @@
-package com.github.denisidoro.hellokotlin.core.dagger.modules;
+package com.github.denisidoro.hellokotlin.core.dagger.providers;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
 
-import com.github.denisidoro.hellokotlin.core.App;
+import com.github.denisidoro.hellokotlin.core.dagger.modules.ApplicationProvider;
+import com.github.denisidoro.hellokotlin.core.rx.MultiThreadRxScheduler;
+import com.github.denisidoro.hellokotlin.core.rx.RxScheduler;
 import com.github.denisidoro.hellokotlin.model.Joke;
 import com.github.denisidoro.hellokotlin.model.Value;
 import com.github.denisidoro.hellokotlin.provider.NorrisProvider;
@@ -15,60 +16,44 @@ import org.mockito.Mockito;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Named;
-import javax.inject.Singleton;
 
-import dagger.Module;
-import dagger.Provides;
 import okhttp3.OkHttpClient;
 import rx.Single;
 
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.doReturn;
 
-@Module
-public class TestApplicationModule {
+public class TestApplicationProvider implements ApplicationProvider {
 
-    public TestApplicationModule (Application application) {
+    public TestApplicationProvider (Application application) {
         this.application = application;
-    }
-
-    public TestApplicationModule () {
-        this((App) InstrumentationRegistry.getTargetContext().getApplicationContext());
     }
 
     public final Application application;
 
-    /**
-     * Expose the application to the graph.
-     */
-    @Provides
-    @Singleton
-    Application application () {
+    @Override
+    public Application provideApplication () {
         return application;
     }
 
-    @Provides
-    @Singleton
+    @Override
     @Named("applicationContext")
-    Context provideContext () {
+    public Context provideContext () {
         return application;
     }
 
-    @Provides
-    @Singleton
-    OkHttpClient provideOkHttpClient () {
+    @Override
+    public OkHttpClient provideOkHttpClient () {
         return new OkHttpClient();
     }
 
-    @Provides
-    @Singleton
-    Gson provideGson() {
+    @Override
+    public Gson provideGson() {
         return new Gson();
     }
 
-    @Provides
-    @Singleton
-    NorrisProvider provideNorrisProvider() {
+    @Override
+    public NorrisProvider provideNorrisProvider(OkHttpClient client, Gson gson) {
         NorrisProvider provider = Mockito.mock(NorrisProvider.class);
         Joke joke = new Joke(new Value(13, "mocked joke"));
         doReturn(Single
@@ -76,6 +61,11 @@ public class TestApplicationModule {
                 .delay(3000, TimeUnit.MILLISECONDS)
         ).when(provider).getJoke(anyInt());
         return provider;
+    }
+
+    @Override
+    public RxScheduler provideRxScheduler() {
+        return new MultiThreadRxScheduler();
     }
 
 }

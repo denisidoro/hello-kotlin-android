@@ -29,7 +29,6 @@ public class DaggerUnitMock {
             injector.setApplicationComponent(mock(ApplicationComponent.class, answer));
             injector.setActivityComponent(mock(ActivityComponent.class, answer));
             Injector.setInstance(injector);
-
         } catch (Exception e) {
             fail(e.getMessage());
         }
