@@ -2,6 +2,7 @@ package com.github.denisidoro.hellokotlin.core;
 
 import android.app.Application;
 
+import com.github.denisidoro.hellokotlin.core.dagger.DaggerException;
 import com.github.denisidoro.hellokotlin.core.dagger.Injector;
 
 public class App extends Application {
@@ -11,7 +12,7 @@ public class App extends Application {
         super.onCreate();
 
         try {
-            Injector.get().applicationComponent(this);
+            configureDagger();
             //configureAnalytics();
             //configureTimber();
             //configureCalligraphy();
@@ -19,6 +20,10 @@ public class App extends Application {
             // error during startup
         }
 
+    }
+
+    private void configureDagger () throws DaggerException {
+        Injector.get().applicationComponent(this);
     }
 
 }

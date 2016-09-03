@@ -2,16 +2,16 @@ package com.github.denisidoro.hellokotlin.core.pattern.controller
 
 import android.os.Bundle
 import android.support.annotation.CallSuper
+import com.beyondeye.reduks.Middleware
 import com.beyondeye.reduks.Reducer
 import com.beyondeye.reduks.Reduks
 import com.beyondeye.reduks.StoreSubscriberBuilder
+import com.beyondeye.reduks.middlewares.applyMiddleware
 import com.beyondeye.reduks.modules.ReduksContext
 import com.beyondeye.reduks.modules.ReduksModule
 import com.beyondeye.reduks.rx.RxStore
 import com.beyondeye.reduks.rx.RxStoreSubscriber
 import com.beyondeye.reduksAndroid.activity.ActionRestoreState
-import com.github.denisidoro.hellokotlin.core.pattern.action.Action
-import com.github.denisidoro.hellokotlin.core.pattern.action.START
 import com.github.denisidoro.hellokotlin.core.pattern.activity.BaseActivity
 import com.github.denisidoro.hellokotlin.core.pattern.proxy.Proxy
 import com.github.denisidoro.hellokotlin.core.pattern.subscriber.AnvilSubscriber
@@ -25,22 +25,29 @@ abstract class Controller<S>(val activity: BaseActivity<S>) {
     abstract fun getReducer(): Reducer<S>
     abstract fun getInitialState(): S
     protected fun getStoreSubscriber(store: RxStore<S>): RxStoreSubscriber<S> = AnvilSubscriber(store)
-    abstract val view: View
+    open fun getMiddlewares(): Array<Middleware<S>> = arrayOf()
 
-    val reduks: Reduks<S> by lazy {
-        ReduksModule<S>(ReduksModule.Def<S>(
-                ReduksContext(this.javaClass.name),
+    protected val reduks: Reduks<S> by lazy {
+        val ctx = ReduksContext(this.javaClass.name)
+        val r = ReduksModule<S>(ReduksModule.Def<S>(
+                ctx,
                 RxStore.Factory<S>(subscription),
                 getInitialState(),
-                START,
+                ctx,
                 getReducer(),
                 StoreSubscriberBuilder<S> { getStoreSubscriber(it as RxStore<S>) }))
+        val m = getMiddlewares()
+        if (m.size > 0) {
+            r.store.applyMiddleware(*m)
+        }
+        r
     }
 
     val getState: () -> S = { reduks.store.state }
-    val dispatch: (Action) -> Unit = { reduks.store.dispatch(it) }
+    val dispatch by lazy { reduks.store.dispatch }
 
-    open val proxy: Proxy = Proxy(dispatch)
+    open val proxy: Proxy by lazy { Proxy(dispatch) }
+    abstract val view: View
 
     @CallSuper
     fun unbind() {

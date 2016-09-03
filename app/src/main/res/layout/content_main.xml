@@ -10,7 +10,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.github.denisidoro.hellokotlin.MainActivity"
     tools:showIn="@layout/activity_main"
     android:orientation="vertical">
 
@@ -24,18 +23,44 @@
         android:textSize="100sp"
         android:text="42"/>
 
-    <Button
-        android:id="@+id/plusBT"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="+"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/minusBT"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:layout_margin="12dp"/>
+
+        <Button
+            android:id="@+id/plusBT"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:layout_margin="12dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/apiTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="lorem ipsum"
         android:layout_margin="12dp"/>
 
-    <Button
-        android:id="@+id/minusBT"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="-"
-        android:layout_margin="12dp"/>
+    <ProgressBar
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/loading"
+        style="?android:attr/progressBarStyle"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/custom_progress"
+        android:layout_width="45dip"
+        android:layout_height="45dip"/>
 
 </LinearLayout>

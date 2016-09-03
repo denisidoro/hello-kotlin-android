@@ -1,3 +1,5 @@
 package com.github.denisidoro.hellokotlin.counter
 
-data class CounterState(val i:Int)
+import com.github.denisidoro.hellokotlin.model.Joke
+
+data class CounterState(val i:Int, val joke: Joke?)

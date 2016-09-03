@@ -13,6 +13,8 @@ android {
         minSdkVersion 15
         targetSdkVersion 23
         versionName release_versions.VERSION_NAME
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
 
     testOptions {
@@ -102,10 +104,6 @@ android {
         exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
     }
 
-    defaultConfig {
-        vectorDrawables.useSupportLibrary = true
-    }
-
 }
 
 buildscript {
@@ -176,8 +174,6 @@ dependencies {
     androidTestCompile libraries.dexmakerMockito
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    /* Testing
-
     // Espresso
     androidTestCompile libraries.espressoCore
     androidTestCompile libraries.espressoIntents
@@ -191,12 +187,14 @@ dependencies {
     androidTestCompile libraries.runner
     androidTestCompile libraries.rules
 
+    // Robolectric
+    testCompile libraries.robolectric
+
     // Mockito
     testCompile libraries.mockito
     androidTestCompile libraries.mockito
 
     // JUnit
     testCompile libraries.junit
-    */
 
 }
