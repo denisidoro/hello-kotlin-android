@@ -43,11 +43,12 @@ abstract class Controller<S>(val activity: BaseActivity<S>) {
         r
     }
 
+    abstract val selector: Any
     val getState: () -> S = { reduks.store.state }
     val dispatch by lazy { reduks.store.dispatch }
+    val proxy = Proxy(getState, dispatch)
 
-    open val proxy: Proxy by lazy { Proxy(dispatch) }
-    abstract val view: View
+    abstract val view: View<S>
 
     @CallSuper
     fun unbind() {

@@ -1,3 +1,3 @@
 package com.github.denisidoro.hellokotlin.core.pattern.proxy
 
-open class Proxy (open val dispatch: (Any) -> Any)
+class Proxy<S>(val getState: () -> S, val dispatch: (Any) -> Any)

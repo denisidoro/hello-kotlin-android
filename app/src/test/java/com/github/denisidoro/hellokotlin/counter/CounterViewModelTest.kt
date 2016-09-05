@@ -17,4 +17,4 @@ class CounterViewModelTest {
         val viewModel = CounterViewModel(application, CounterState(33, null))
         assertEquals("33", viewModel.counterText)
     }
-}
+}e
