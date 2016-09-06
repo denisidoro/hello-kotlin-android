@@ -8,4 +8,4 @@ data class Joke(@SerializedName("value")
 data class Value(@SerializedName("id")
                  val id: Int,
                  @SerializedName("joke")
-                 val joke: String)
+                 val text: String)

@@ -23,7 +23,7 @@ abstract class View<S> (open val activity: BaseActivity<S>, val proxy: Proxy<S>,
         actions.forEach { proxy.dispatch(it) }
     }
 
-    inline fun <reified T> subscribe (selector: AbstractSelector<S, T>): T
+    inline fun <reified T> defer(selector: AbstractSelector<S, T>): T
             = selector(proxy.getState())
 
 }

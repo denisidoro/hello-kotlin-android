@@ -1,7 +1,16 @@
 package com.github.denisidoro.hellokotlin.counter
 
-class CounterViewModel(i: Int) {
+import com.github.denisidoro.hellokotlin.model.Joke
 
-    val counterText = i.toString()
+class CounterViewModel {
+
+    class Count(i: Int) {
+        val counterText = i.toString()
+    }
+
+    class Api(val joke: Joke?) {
+        val apiText = joke?.value?.text ?: ""
+        val isLoading: Boolean = joke == null
+    }
 
 }
