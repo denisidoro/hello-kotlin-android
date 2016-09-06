@@ -28,12 +28,12 @@ class CounterMiddlewareTest {
     fun before() {
         MockitoAnnotations.initMocks(this)
 
-        DaggerUnitMock.setup(CounterMiddleware::class.java, {
+        DaggerUnitMock.setup(middleware) {
             it.norrisManager = norrisManager
             it.scheduler = scheduler
-        })
+        }
 
-        doReturn(CounterState(43, null)).whenever(store).state
+        doReturn(CounterState.default()).whenever(store).state
 
         middleware = CounterMiddleware()
     }

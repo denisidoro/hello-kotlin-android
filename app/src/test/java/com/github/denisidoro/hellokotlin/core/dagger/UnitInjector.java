@@ -30,7 +30,7 @@ public class UnitInjector implements InjectorInterface {
         return activityComponent;
     }
 
-    public void reset (BaseActivity activity) {
+    public void resetActivityComponent (BaseActivity activity) {
     }
 
     @Override

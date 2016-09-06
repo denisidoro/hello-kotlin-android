@@ -29,7 +29,7 @@ abstract class Controller<S>(val activity: BaseActivity<S>) {
 
     protected val reduks: Reduks<S> by lazy {
         val ctx = ReduksContext(this.javaClass.name)
-        val r = ReduksModule<S>(ReduksModule.Def<S>(
+        val r = ReduksModule(ReduksModule.Def(
                 ctx,
                 RxStore.Factory<S>(subscription),
                 getInitialState(),

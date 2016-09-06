@@ -87,7 +87,7 @@ public class Injector implements InjectorInterface {
     }
 
     @Override
-    public void reset (BaseActivity activity) {
+    public void resetActivityComponent (BaseActivity activity) {
         if (activity.getClass().getName().equals(this.activityClassName)) {
             reset();
         }

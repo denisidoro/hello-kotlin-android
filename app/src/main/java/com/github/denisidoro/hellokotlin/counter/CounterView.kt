@@ -24,26 +24,26 @@ class CounterView(override val activity: CounterActivity, proxy: Proxy<CounterSt
     }
 
     fun buttons() {
-        val viewModel = defer(selector.joke)
+        val apiModel = defer(selector.api)
         withId(R.id.plusBT) {
             onClick { v -> dispatch(INCREMENT, JOKE_REQUEST) }
-            enabled(!viewModel.isLoading)
+            enabled(!apiModel.isLoading)
         }
         withId(R.id.minusBT) {
             onClick { v -> dispatch(DECREMENT, JOKE_REQUEST) }
-            enabled(!viewModel.isLoading)
+            enabled(!apiModel.isLoading)
         }
 
     }
 
     fun result() {
-        val viewModel = defer(selector.joke)
+        val apiModel = defer(selector.api)
         withId(R.id.apiTV) {
-            text(viewModel.apiText)
-            visibility(!viewModel.isLoading)
+            text(apiModel.apiText)
+            visibility(!apiModel.isLoading)
         }
         withId(R.id.loading) {
-            visibility(viewModel.isLoading)
+            visibility(apiModel.isLoading)
         }
     }
 

@@ -16,7 +16,7 @@ public interface InjectorInterface {
 
     ActivityTopComponent activityComponent (BaseActivity activity);
 
-    void reset (BaseActivity activity);
+    void resetActivityComponent (BaseActivity activity);
 
     boolean canOverride ();
 

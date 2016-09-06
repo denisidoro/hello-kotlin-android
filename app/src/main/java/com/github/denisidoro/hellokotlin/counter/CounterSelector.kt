@@ -5,7 +5,7 @@ import com.beyondeye.reduks.SelectorBuilder
 class CounterSelector() {
 
     val sel = SelectorBuilder<CounterState>()
-    val joke = sel.withField { joke }.compute { CounterViewModel.Api(it.it) }
+    val api = sel.withField { joke }.compute { CounterViewModel.Api(it.it) }
     val counter = sel.withField { i }.compute { CounterViewModel.Count(it) }
 
 }
