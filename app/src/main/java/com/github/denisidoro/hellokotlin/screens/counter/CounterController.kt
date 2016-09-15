@@ -1,4 +1,4 @@
-package com.github.denisidoro.hellokotlin.counter
+package com.github.denisidoro.hellokotlin.screens.counter
 
 import com.beyondeye.reduks.Middleware
 import com.github.denisidoro.hellokotlin.core.pattern.controller.Controller
@@ -6,14 +6,14 @@ import com.github.denisidoro.hellokotlin.core.pattern.controller.Controller
 class CounterController(activity: CounterActivity) : Controller<CounterState>(activity) {
 
     override fun getReducer() = CounterReducer()
-    override fun getInitialState() = CounterState.default()
+    override fun getInitialState() = CounterState()
     override fun getMiddlewares(): Array<Middleware<CounterState>> = arrayOf(CounterMiddleware())
 
     override val selector: CounterSelector = CounterSelector()
-    override val view = CounterView(activity, proxy, selector)
+    override val view by lazy { CounterView(activity, store, selector) }
 
     init {
-        dispatch(CounterActions.JOKE_REQUEST)
+        store.dispatch(CounterActions.JOKE_REQUEST)
     }
 
 }

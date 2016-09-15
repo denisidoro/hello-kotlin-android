@@ -1,10 +1,10 @@
-package com.github.denisidoro.hellokotlin.counter
+package com.github.denisidoro.hellokotlin.screens.counter
 
 import com.beyondeye.reduks.NextDispatcher
 import com.beyondeye.reduks.Store
 import com.github.denisidoro.hellokotlin.core.dagger.DaggerUnitMock
 import com.github.denisidoro.hellokotlin.core.rx.TestRxScheduler
-import com.github.denisidoro.hellokotlin.counter.CounterActions.JOKE_REQUEST
+import com.github.denisidoro.hellokotlin.screens.counter.CounterActions.JOKE_REQUEST
 import com.github.denisidoro.hellokotlin.helpers.*
 import com.github.denisidoro.hellokotlin.manager.TestNorrisManager
 import org.junit.Before

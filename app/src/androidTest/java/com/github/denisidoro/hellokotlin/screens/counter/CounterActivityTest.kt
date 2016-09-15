@@ -1,4 +1,4 @@
-package com.github.denisidoro.hellokotlin.counter
+package com.github.denisidoro.hellokotlin.screens.counter
 
 import android.content.Intent
 import android.support.test.rule.ActivityTestRule

@@ -197,4 +197,8 @@ dependencies {
     // JUnit
     testCompile libraries.junit
 
+    compile 'com.github.campusappcn.AndRouter:router:1.2.4'
+    apt 'com.github.campusappcn.AndRouter:compiler:1.2.4'
+
+
 }

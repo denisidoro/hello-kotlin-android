@@ -1,9 +1,9 @@
-package com.github.denisidoro.hellokotlin.counter
+package com.github.denisidoro.hellokotlin.screens.counter
 
 import com.beyondeye.reduks.Reducer
 import com.github.denisidoro.hellokotlin.core.Opt
-import com.github.denisidoro.hellokotlin.counter.CounterActions.*
 import com.github.denisidoro.hellokotlin.model.Joke
+import com.github.denisidoro.hellokotlin.screens.counter.CounterActions.*
 
 class CounterReducer : Reducer<CounterState> {
     override fun reduce(state: CounterState, action: Any?) =

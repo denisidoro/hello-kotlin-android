@@ -8,10 +8,6 @@ import rx.Observable
 import rx.functions.Func0
 import java.io.IOException
 
-object NetworkUtils {
-
-}
-
 fun OkHttpClient.toObservable(request: Request): Observable<Response> = Observable.defer(Func0 {
     try {
         val response = newCall(request).execute()

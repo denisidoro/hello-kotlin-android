@@ -1,6 +1,5 @@
-package com.github.denisidoro.hellokotlin.counter
+package com.github.denisidoro.hellokotlin.screens.counter
 
-import com.github.denisidoro.hellokotlin.core.Opt
 import com.github.denisidoro.hellokotlin.model.Joke
 
 sealed class CounterActions {

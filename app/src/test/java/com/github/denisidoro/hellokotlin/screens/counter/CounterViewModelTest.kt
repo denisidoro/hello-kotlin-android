@@ -1,4 +1,4 @@
-package com.github.denisidoro.hellokotlin.counter
+package com.github.denisidoro.hellokotlin.screens.counter
 
 import com.github.denisidoro.hellokotlin.BuildConfig
 import org.junit.Test

@@ -1,12 +1,12 @@
-package com.github.denisidoro.hellokotlin.counter
+package com.github.denisidoro.hellokotlin.screens.counter
 
+import com.beyondeye.reduks.Store
 import com.github.denisidoro.hellokotlin.R
-import com.github.denisidoro.hellokotlin.core.pattern.proxy.Proxy
 import com.github.denisidoro.hellokotlin.core.pattern.view.View
-import com.github.denisidoro.hellokotlin.counter.CounterActions.*
+import com.github.denisidoro.hellokotlin.screens.counter.CounterActions.*
 import trikita.anvil.DSL.*
 
-class CounterView(override val activity: CounterActivity, proxy: Proxy<CounterState>, override val selector: CounterSelector) : View<CounterState>(activity, proxy, selector) {
+class CounterView(override val activity: CounterActivity, store: Store<CounterState>, override val selector: CounterSelector) : View<CounterState>(activity, store, selector) {
 
     override fun view() {
         xml(R.layout.activity_main) {

@@ -14,6 +14,6 @@ open class NorrisManager(val client: OkHttpClient, val gson: Gson) {
             .toObservable("http://api.icndb.com/jokes/$id")
             .parse(gson, Joke::class.java)
             .toSingle()
-            .delay(2500, TimeUnit.MILLISECONDS); // for demo purposes
+            .delay(2000, TimeUnit.MILLISECONDS); // for demo purposes
 
 }

@@ -1,12 +1,12 @@
 package com.github.denisidoro.hellokotlin.core.pattern.view
 
 import com.beyondeye.reduks.AbstractSelector
+import com.beyondeye.reduks.Store
 import com.github.denisidoro.hellokotlin.core.pattern.activity.BaseActivity
-import com.github.denisidoro.hellokotlin.core.pattern.proxy.Proxy
 import trikita.anvil.Anvil
 import trikita.anvil.RenderableView
 
-abstract class View<S> (open val activity: BaseActivity<S>, val proxy: Proxy<S>, open val selector: Any?)
+abstract class View<S> (open val activity: BaseActivity<S>, val store: Store<S>, open val selector: Any?)
 : RenderableView(activity) {
 
     override fun onAttachedToWindow() {
@@ -20,10 +20,11 @@ abstract class View<S> (open val activity: BaseActivity<S>, val proxy: Proxy<S>,
     }
 
     fun dispatch (vararg actions: Any) {
-        actions.forEach { proxy.dispatch(it) }
+        actions.forEach { store.dispatch(it) }
     }
 
-    inline fun <reified T> defer(selector: AbstractSelector<S, T>): T
-            = selector(proxy.getState())
+    inline fun <reified T> defer(selector: AbstractSelector<S, T>): T {
+        return selector(store.state)
+    }
 
 }

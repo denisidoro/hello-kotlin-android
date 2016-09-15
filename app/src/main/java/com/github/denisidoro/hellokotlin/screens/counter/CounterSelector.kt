@@ -1,4 +1,4 @@
-package com.github.denisidoro.hellokotlin.counter
+package com.github.denisidoro.hellokotlin.screens.counter
 
 import com.beyondeye.reduks.SelectorBuilder
 
