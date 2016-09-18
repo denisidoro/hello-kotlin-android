@@ -6,7 +6,8 @@ import com.github.denisidoro.hellokotlin.core.pattern.controller.Controller
 import com.github.denisidoro.hellokotlin.core.pattern.reducer.DummyReducer
 import com.github.denisidoro.hellokotlin.core.pattern.view.View
 import trikita.anvil.BaseDSL.text
-import trikita.anvil.DSL.*
+import trikita.anvil.DSL.button
+import trikita.anvil.DSL.linearLayout
 
 class HomeActivity : BaseActivity<Unit>() {
     override val controller by lazy { HomeController(this) }
@@ -23,7 +24,7 @@ class HomeView(activity: HomeActivity, store: Store<Unit>, selector: Any) : View
         linearLayout() {
             button() {
                 text("Counter")
-                onClick { dispatch(ACTIVITY("/counter")) }
+                //onClick { dispatch(ACTIVITY("/counter")) }
             }
         }
     }

@@ -4,9 +4,11 @@ import com.beyondeye.reduks.NextDispatcher
 import com.beyondeye.reduks.Store
 import com.github.denisidoro.hellokotlin.core.dagger.DaggerUnitMock
 import com.github.denisidoro.hellokotlin.core.rx.TestRxScheduler
-import com.github.denisidoro.hellokotlin.screens.counter.CounterActions.JOKE_REQUEST
-import com.github.denisidoro.hellokotlin.helpers.*
+import com.github.denisidoro.hellokotlin.helpers.any
+import com.github.denisidoro.hellokotlin.helpers.never
+import com.github.denisidoro.hellokotlin.helpers.verify
 import com.github.denisidoro.hellokotlin.manager.TestNorrisManager
+import com.github.denisidoro.hellokotlin.screens.counter.CounterActions.JOKE_REQUEST
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -33,7 +35,7 @@ class CounterMiddlewareTest {
             it.scheduler = scheduler
         }
 
-        doReturn(CounterState.default()).whenever(store).state
+        //doReturn(CounterState.default()).whenever(store).state
 
         middleware = CounterMiddleware()
     }

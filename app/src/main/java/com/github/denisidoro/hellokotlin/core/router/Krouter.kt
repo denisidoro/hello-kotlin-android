@@ -3,23 +3,24 @@ package com.github.denisidoro.hellokotlin.core.router
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import com.github.denisidoro.hellokotlin.core.router.Schema.Type.*
 import java.util.*
 
-class Router(url: String, route: Route, cls: Class<*>, val context: Context) {
+class Router(url: String, route: Route, activityCls: Class<out Activity>, val context: Context) {
 
-    val intent = Intent(context, cls)
+    val intent = Intent(context, activityCls)
 
     init {
         url.split('/').toTypedArray()
-                .filter { it.startsWith(':') }
-                .map { it.substring(1) }
+                .zip(route.url.split('/').toTypedArray())
+                .filter { it.second.startsWith(':') }
+                .map { Pair(it.first, it.second.substring(1)) }
                 .forEach {
-                    val type = route.schemaTable[it]!!.type ?: inferType(it)
-                    when (type) {
-                        Int -> intent.putExtra(it, it.toInt())
-                        Float -> intent.putExtra(it, it.toFloat())
-                        Double -> intent.putExtra(it, it.toDouble())
-                        else -> intent.putExtra(it, it.toString())
+                    val regex = route.schemas[it.second]?.regex?.let { Schema.Type.from(it) } ?: inferRegex(it.first)
+                    when (regex) {
+                        INT -> intent.putExtra(it.second, it.first.toInt())
+                        FLOAT -> intent.putExtra(it.second, it.first.toFloat())
+                        else -> intent.putExtra(it.second, it.first.toString())
                     }
                 }
     }
@@ -28,48 +29,57 @@ class Router(url: String, route: Route, cls: Class<*>, val context: Context) {
         context.startActivity(intent)
     }
 
-    private fun inferType(segment: String) = Int
-
+    internal fun inferRegex(seg: String): Schema.Type {
+        return Schema.Type.values()
+                .find { seg.matches(it.regex.toRegex()) } ?: STRING
+    }
 }
 
-class Schema(val type: Class<*>?, val regex: String?)
+class Schema(val regex: String? = null, val default: String? = null) {
 
-class Route(val uri: String, val schemaTable: Map<String, Schema> = HashMap())
+    constructor(type: Schema.Type) : this(type.regex)
 
-class Kouter(val context: Context, val routeTable: Map<Route, Class<out Activity>> = HashMap()) {
+    enum class Type(val regex: String) {
+        INT("^[-+]?[0-9]+$"),
+        FLOAT("^[+-]?([0-9]*[.])?[0-9]+$"),
+        STRING("");
 
-    fun find(url: String): Route? = routeTable.keys.find { matchesSchema(url, it) }
+        companion object {
+            fun from(regex: String): Type = Type.values().associateBy(Type::regex)[regex] ?: STRING
+        }
+    }
+}
 
-    fun getRouter(url: String) = find(url)?.let { Router(url, it, routeTable[it]!!, context) }
+class Route(val url: String, val schemas: Map<String, Schema> = HashMap())
+
+class Krouter(val context: Context, val routes: Map<Route, Class<out Activity>> = HashMap()) {
 
     fun start(url: String) = getRouter(url)!!.let { it.start() }
 
-    fun matchesSchema(url: String, route: Route): Boolean {
-        val segs: Array<String> = url.split('/').toTypedArray()
-        return matchesRoute(segs, route.uri) && matchesProps(segs, route.schemaTable)
-    }
+    fun getRouter(url: String) = find(url)?.let { Router(url, it, routes[it]!!, context) }
 
-    fun matchesRoute(urlSegs: Array<String>, uri: String): Boolean {
-        val routeSegs: Array<String> = uri.split('/').toTypedArray()
+    internal fun find(url: String): Route? = routes.keys.find { matchesSchema(url, it) }
 
-        if (routeSegs.size != urlSegs.size)
+    internal fun matchesSchema(url: String, route: Route): Boolean {
+        val urlSegs = split(url)
+        val routeUrlSegs = split(route.url)
+
+        if (routeUrlSegs.size != urlSegs.size)
             return false
 
         return urlSegs
-                .zip(routeSegs)
-                .all { it.first.startsWith(':') || it.first.equals(it.second) }
-    }
-
-    fun matchesProps(urlSegs: Array<String>, schemaTable: Map<String, Schema>): Boolean {
-        return urlSegs
-                .filter { it.startsWith(':') }
-                .map { it.substring(1) }
-                .map { Pair(it, schemaTable[it]) }
-                .all { pair ->
-                    pair.second!!.regex?.let {
-                        pair.first.matches(it.toRegex())
-                    } ?: true
+                .zip(routeUrlSegs)
+                .all {
+                    if (it.second.startsWith(':')) {
+                        it.second.substring(1).let { seg ->
+                            route.schemas[seg]?.regex?.let { regex ->
+                                regex.length == 0 || it.first.matches(regex.toRegex())
+                            } ?: true
+                        }
+                    } else it.first.equals(it.second)
                 }
     }
+
+    private fun split(s: String): Array<String> = s.split('/').toTypedArray()
 
 }
