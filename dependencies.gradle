@@ -108,6 +108,9 @@ ext.libraries = [
         reduksRx              : "com.github.beyondeye.reduks:reduks-rx:$versions.reduks",
         reduksAndroid         : "com.github.beyondeye.reduks:reduks-android:$versions.reduks",
         reduksKovenant        : "com.github.beyondeye.reduks:reduks-kovenant:$versions.reduks",
-        reduksDev             : "com.github.beyondeye.reduks:reduks-devtools:$versions.reduks"
+        reduksDev             : "com.github.beyondeye.reduks:reduks-devtools:$versions.reduks",
+
+        // Routing
+        krouter               : "com.github.denisidoro.github:krouter:0.0.1"
 
 ]
