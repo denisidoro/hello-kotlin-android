@@ -1,5 +1,7 @@
 # Hello Kotlin Android
 
+### [DEPRECATED] In favor of https://github.com/denisidoro/reseau
+
 A [functional reactive][frp] Android app written in [Kotlin][kotlin] that uses the [Redux][reduxjs] pattern. It has similarities to [React][react] and [re-frame][reframe].
 
 It consists of a counter that fetches Chuck Norris jokes:
